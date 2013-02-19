@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+    function PessoaViewModel() {
+        var self = this;
+
+        self.nome = ko.observable('');
+        self.sobrenome = ko.observable('');
+
+        self.nomeCompleto = ko.computed(function () {
+            return self.nome() + " " + self.sobrenome();
+        });
+
+    }
+
+    $(function () {
+        var viewModel = new PessoaViewModel();
+        ko.applyBindings(viewModel);
+    });
+</script>
+
+<h2>Campo computado</h2>
+
+<form>
+    Nome:
+    <br />
+    <input type="text" data-bind="value: nome" />
+    
+    <br/>
+
+    Sobrenome:
+    <br />
+    <input type="text" data-bind="value: sobrenome" />
+</form>
+
+<p data-bind="text: nomeCompleto"></p>

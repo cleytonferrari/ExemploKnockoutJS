@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+    function ListaViewModel() {
+        var self = this;
+
+        self.listaDeNomes = ko.observableArray([]);
+        self.nome = ko.observable('');
+
+        self.adicionarItem = function () {
+            if (self.nome != "")
+                self.listaDeNomes.push(self.nome());
+        };
+
+        self.limpar = function () {
+            self.listaDeNomes([]);
+        };
+
+        self.excluir = function (item) {
+            self.listaDeNomes.remove(item);
+        };
+        self.carregarLista = function () {
+            $.getJSON('/api/Listas', function (retorno) {
+                console.log(retorno);
+
+                //ko.utils.arrayForEach(retorno, function(item) {
+                //    self.listaDeNomes.push(item);
+                //});
+                // outra maneira de fazer a mesma coisa, so que com mais performance
+                var array = self.listaDeNomes();
+                ko.utils.arrayPushAll(array, retorno);
+                self.listaDeNomes.valueHasMutated();
+            });
+        };
+    }
+
+    $(function () {
+        var viewModel = new ListaViewModel();
+        ko.applyBindings(viewModel);
+    });
+</script>
+
+<h2>Lista de Nomes</h2>
+
+<form>
+    Nome:
+    <br />
+    <input type="text" data-bind="value: nome" />
+
+    <br />
+    <input type="button" data-bind="click: adicionarItem" value="Adicionar Pessoa" />
+    <input type="button" data-bind="click: limpar" value="Limpar Lista" />
+    <input type="button" data-bind="click: carregarLista" value="Carregar Lista com Ajax" />
+</form>
+
+<ul>
+    <!-- ko foreach: listaDeNomes -->
+    <li><span data-bind="text: $data"></span><a href="#" data-bind="    click: $root.excluir">X</a></li>
+    <!-- /ko -->
+</ul>
