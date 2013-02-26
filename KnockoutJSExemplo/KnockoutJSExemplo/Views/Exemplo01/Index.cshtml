@@ -6,7 +6,7 @@
     function PessoaViewModel() {
         var self = this;
 
-        self.nome = ko.observable('');
+        self.nome = ko.observable('dite o primeiro nome');
         self.sobrenome = ko.observable('');
 
         self.nomeCompleto = ko.computed(function () {
@@ -36,3 +36,4 @@
 </form>
 
 <p data-bind="text: nomeCompleto"></p>
+<input type="text" data-bind="value: nome" />

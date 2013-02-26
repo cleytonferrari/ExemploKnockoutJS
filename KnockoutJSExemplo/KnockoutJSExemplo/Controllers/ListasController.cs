@@ -9,7 +9,7 @@ namespace KnockoutJSExemplo.Controllers
 {
     public class ListasController : ApiController
     {
-        // GET api/listas
+
         public IEnumerable<string> Get()
         {
             var lista = new List<string>();
@@ -17,6 +17,20 @@ namespace KnockoutJSExemplo.Controllers
             lista.Add("MIELY CASARIN FERRARI");
             lista.Add("RENATA CASARIN FERRARI");
             return lista;
-        }        
+        }
+
+        public Pessoa Post(Pessoa pessoa)
+        {
+            pessoa.Email = pessoa.Email + "(mudei no server)";
+            pessoa.Nome = pessoa.Nome + "(mudei no server)";
+            return pessoa;
+        }
+    }
+
+    public class Pessoa
+    {
+        
+        public string Nome { get; set; }
+        public string Email { get; set; }
     }
 }

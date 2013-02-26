@@ -129,6 +129,7 @@
     <Compile Include="Controllers\Exemplo01Controller.cs" />
     <Compile Include="Controllers\Exemplo02Controller.cs" />
     <Compile Include="Controllers\Exemplo03Controller.cs" />
+    <Compile Include="Controllers\Exemplo04Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListasController.cs" />
     <Compile Include="Global.asax.cs">
@@ -168,6 +169,7 @@
     <Content Include="Views\Exemplo01\Index.cshtml" />
     <Content Include="Views\Exemplo02\Index.cshtml" />
     <Content Include="Views\Exemplo03\Index.cshtml" />
+    <Content Include="Views\Exemplo04\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

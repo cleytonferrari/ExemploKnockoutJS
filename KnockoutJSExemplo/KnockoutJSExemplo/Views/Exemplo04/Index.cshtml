@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type="text/javascript">
+    function ListaViewModel() {
+        var self = this;
+
+        self.nome = ko.observable('');
+        self.email = ko.observable('');
+
+        //so pra exemplificar o usu do retorno
+        self.nomeRetorno = ko.observable('');
+        self.emailRetorno = ko.observable('');
+
+        self.salvarPessoa = function () {
+
+            var pessoaSalvar = {
+                Nome: self.nome(),
+                Email: self.email()
+            };
+
+            $.ajax({
+                url: "/api/Listas",
+                type: "POST",
+                data: JSON.stringify(pessoaSalvar),
+                contentType: 'application/json',
+                success: function (retorno) {
+                    self.nomeRetorno(retorno.Nome);
+                    self.emailRetorno(retorno.Email);
+                },
+                error: function (req, status, error) {
+                    var erros = JSON.parse(req.responseText);
+                    $(erros).each(function (index, erro) {
+                        console.log(erro.Valor);
+                    });
+                }
+            });
+        };
+    }
+
+    $(function () {
+        var viewModel = new ListaViewModel();
+        ko.applyBindings(viewModel);
+    });
+</script>
+
+<h2>Lista de Nomes</h2>
+
+<form>
+    Nome:
+    <br />
+    <input type="text" data-bind="value: nome" />
+    
+    <br/>
+
+    Email:
+    <br />
+    <input type="text" data-bind="value: email" />
+
+    <br />
+    <input type="button" data-bind="click: salvarPessoa" value="Salvar Pessoa" />
+</form>
+
+<p>Última pessoal salva</p>
+<p>
+    <span data-bind="text: nomeRetorno"></span>
+</p>
+<p>
+    <span data-bind="text: emailRetorno"></span>
+</p>
